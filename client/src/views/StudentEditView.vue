@@ -33,6 +33,11 @@ const handleGetStudent = async () => {
     toast.error([404].includes(e.response.status) ? e.response.data.message : 'Ocorreu um erro interno no servidor, tente novamente, mais tarde!', {
       position: 'top-right',
     })
+    if (e.response.status === 404) {
+      setTimeout(async () => {
+        await router.push({name: 'Home'})
+      }, 2500)
+    }
   } finally {
     states.loading = false
   }
@@ -54,7 +59,6 @@ const handleUpdateStudent = async () => {
       ra: states.form.ra,
       cpf: states.form.cpf
     });
-    console.log(data)
     toast.success('Aluno atualizado com sucesso', {
       position: 'top-right',
     })
